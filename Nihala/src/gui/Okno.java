@@ -1,34 +1,47 @@
 package gui;
 
+import java.awt.Container;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
 
+import algoritem.Razporeditev;
+
 @SuppressWarnings("serial")
 public class Okno extends JFrame {
 	
+	
+	private Container plosca;
+	private Menu menu;
 	private Platno platno;
-	private Menu menu = new Menu();
-	public Graf graf = Graf.seznamPovezav(3);
+	public Nihalo nihalo = Nihalo.povezave(3);
+	private Razporeditev razporeditev = new Razporeditev();
 
 	public Okno() throws HeadlessException {
 		super();
 		this.setTitle("Simulacija nihanja");
 		this.setLayout(new GridBagLayout());
-		
-		//Platno
-		platno = new Platno(this);
-		this.getContentPane().add(platno);
+		plosca = this.getContentPane(); 
 		
 		//Menu
+		menu = new Menu(this);
 		this.setJMenuBar(menu);
 		
-		//Razporedi
-		platno.razporedi(1280/2, 180, 100);
+		//Platno
+		platno = new Platno(this.nihalo);
+		plosca.add(platno);
+		
+		//Razporeditev
+		razporeditev.zacetnaRazporeditev(nihalo, 640, 180, 100);
 	}
 
-	
-	
-	
+	public void osvezi() {
+		platno = new Platno(nihalo);
+		razporeditev.zacetnaRazporeditev(nihalo, 640, 180, 100);
+		plosca.removeAll();
+		plosca.add(platno);
+		plosca.revalidate();
+		plosca.repaint();
+	}
 }

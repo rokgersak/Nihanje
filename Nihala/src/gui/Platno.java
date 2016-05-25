@@ -11,39 +11,52 @@ public class Platno extends JPanel {
 	
  	private int sirina = 1280;
 	private int visina = 720;
-	public Graf graf;
+	private Nihalo nihalo;
 	
-	public Platno(Okno okno) {
+	public Platno(Nihalo nihalo) {
 		super();
+		this.nihalo = nihalo;
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(sirina, visina));
-		this.graf = okno.graf;
-	}
-
-	public void razporedi(int x, int y, int r){
-		int i = 0;
-		for (Object tocka : graf.seznam.keySet()){
-			graf.tocka(tocka).x = (double) (r * i + x);
-			graf.tocka(tocka).y = (double) (r * i + y);
-			i++;
-		}
 	}
 	
+	// Narišemo komponente
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.setColor(Color.BLUE);
-		for (Object tocka : graf.seznam.keySet()){
-			int zacetniX = graf.tocka(tocka).x.intValue();
-			int zacetniY = graf.tocka(tocka).y.intValue();
-			for (Tocka soseda : graf.tocka(tocka).sosedi){
+		g.setColor(Color.BLACK);
+		for (Object tocka : nihalo.seznam.keySet()){
+			int zacetniX = nihalo.tocka(tocka).x.intValue();
+			int zacetniY = nihalo.tocka(tocka).y.intValue();
+			for (Tocka soseda : nihalo.tocka(tocka).sosedi){
 				int koncniX = soseda.x.intValue();
 				int koncniY = soseda.y.intValue();
-				
 				g.drawLine(zacetniX, zacetniY, koncniX, koncniY);
 			}
 		}
-		for (Object tocka : graf.seznam.keySet()){
-			g.fillOval(graf.tocka(tocka).x.intValue() - 10, graf.tocka(tocka).y.intValue() - 10, 20, 20);
+		g.setColor(Color.BLUE);
+		for (Object tocka : nihalo.seznam.keySet()){
+			if (nihalo.tocka(tocka).masa == 3){
+				g.fillOval(nihalo.tocka(tocka).x.intValue() - 15, nihalo.tocka(tocka).y.intValue() - 15, 30, 30);
+			} else 	if (nihalo.tocka(tocka).masa == 2){
+				g.fillOval(nihalo.tocka(tocka).x.intValue() - 10, nihalo.tocka(tocka).y.intValue() - 10, 20, 20);
+			} else{
+				g.fillOval(nihalo.tocka(tocka).x.intValue() - 5, nihalo.tocka(tocka).y.intValue() - 5, 10, 10);
+			}
 		}
+		g.setColor(Color.RED);
+		for (Object tocka : nihalo.seznam.keySet()){
+			if (nihalo.tocka(tocka).dusenje == true){
+				if (nihalo.tocka(tocka).masa == 3){
+					g.fillOval(nihalo.tocka(tocka).x.intValue() - 15, nihalo.tocka(tocka).y.intValue() - 15, 30, 30);
+				} else 	if (nihalo.tocka(tocka).masa == 2){
+					g.fillOval(nihalo.tocka(tocka).x.intValue() - 10, nihalo.tocka(tocka).y.intValue() - 10, 20, 20);
+				} else{
+					g.fillOval(nihalo.tocka(tocka).x.intValue() - 5, nihalo.tocka(tocka).y.intValue() - 5, 10, 10);
+				}
+			}
+        }
+		g.setColor(Color.GRAY);
+		g.fillRect(550, 178, 180, 4);
+		g.fillOval(635, 175, 10, 10);
 	}
 }
