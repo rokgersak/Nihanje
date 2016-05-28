@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class Platno extends JPanel {
 	
- 	private int sirina = 1000;
-	private int visina = 500;
+ 	public static int sirina = 1000;
+	public static int visina = 500;
 	private Nihalo nihalo;
 	
 	public Platno(Nihalo nihalo) {
