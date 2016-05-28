@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class Platno extends JPanel {
 	
- 	private int sirina = 1280;
-	private int visina = 720;
+ 	private int sirina = 1000;
+	private int visina = 500;
 	private Nihalo nihalo;
 	
 	public Platno(Nihalo nihalo) {
@@ -20,7 +20,7 @@ public class Platno extends JPanel {
 		this.setPreferredSize(new Dimension(sirina, visina));
 	}
 	
-	// Narišemo komponente
+	// Narisemo komponente
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.setColor(Color.BLACK);
@@ -56,7 +56,7 @@ public class Platno extends JPanel {
 			}
         }
 		g.setColor(Color.GRAY);
-		g.fillRect(550, 178, 180, 4);
-		g.fillOval(635, 175, 10, 10);
+		g.fillRect(410, 178, 180, 4);
+		g.fillOval(495, 175, 10, 10);
 	}
 }

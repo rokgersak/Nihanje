@@ -4,6 +4,7 @@ import gui.Nihalo;
 
 public class Razporeditev {
 
+
 	public Razporeditev() {
 		super();
 	}

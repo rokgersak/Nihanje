@@ -18,7 +18,7 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 	private JMenu stevilo = new JMenu("Nihalo");
 	private JRadioButtonMenuItem dvojno = new JRadioButtonMenuItem("Dvojno");
 	private JRadioButtonMenuItem trojno = new JRadioButtonMenuItem("Trojno");
-	private JMenu dusenje = new JMenu("Dušenje");
+	private JMenu dusenje = new JMenu("DuÅ¡enje");
 	private JCheckBoxMenuItem dusenje1 = new JCheckBoxMenuItem("Prvo nihalo");
 	private JCheckBoxMenuItem dusenje2 = new JCheckBoxMenuItem("Drugo nihalo");
 	private JCheckBoxMenuItem dusenje3 = new JCheckBoxMenuItem("Tretje nihalo");
@@ -90,7 +90,7 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
         skupinaMasa3.add(masa32);
         skupinaMasa3.add(masa33);
 		
-		//Poslušalci
+		//Poslusalci
 		dvojno.addActionListener(this);
 		trojno.addActionListener(this);
 		dusenje1.addItemListener(this);
@@ -106,7 +106,7 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 		masa32.addActionListener(this);
 		masa33.addActionListener(this);
 		
-		//Zaèetek
+		//Zacetek
 		dvojno.setSelected(true);
 		masa11.setSelected(true);
 		masa21.setSelected(true);

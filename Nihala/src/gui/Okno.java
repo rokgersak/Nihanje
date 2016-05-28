@@ -33,12 +33,12 @@ public class Okno extends JFrame {
 		plosca.add(platno);
 		
 		//Razporeditev
-		razporeditev.zacetnaRazporeditev(nihalo, 640, 180, 100);
+		razporeditev.zacetnaRazporeditev(nihalo, 500, 180, 100);
 	}
 
 	public void osvezi() {
 		platno = new Platno(nihalo);
-		razporeditev.zacetnaRazporeditev(nihalo, 640, 180, 100);
+		razporeditev.zacetnaRazporeditev(nihalo, 500, 180, 100);
 		plosca.removeAll();
 		plosca.add(platno);
 		plosca.revalidate();

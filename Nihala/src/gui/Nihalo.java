@@ -36,7 +36,7 @@ public class Nihalo {
 		tocka.dusenje = !tocka.dusenje;
 	}
 
-	// Poveèaj/zmanjšaj maso tocke.
+	// Povecaj/zmanjsaj maso tocke.
 	public void dodajMaso(Tocka tocka, int masa){
 		tocka.masa = masa;
 	}
