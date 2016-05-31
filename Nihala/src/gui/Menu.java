@@ -15,10 +15,11 @@ import javax.swing.JRadioButtonMenuItem;
 public class Menu extends JMenuBar implements ActionListener, ItemListener {
 
 	private Okno okno;
+	private Nihalo nihalo;
 	private JMenu stevilo = new JMenu("Nihalo");
 	private JRadioButtonMenuItem dvojno = new JRadioButtonMenuItem("Dvojno");
 	private JRadioButtonMenuItem trojno = new JRadioButtonMenuItem("Trojno");
-	private JMenu dusenje = new JMenu("Dušenje");
+	private JMenu dusenje = new JMenu("Dusenje");
 	private JCheckBoxMenuItem dusenje1 = new JCheckBoxMenuItem("Prvo nihalo");
 	private JCheckBoxMenuItem dusenje2 = new JCheckBoxMenuItem("Drugo nihalo");
 	private JCheckBoxMenuItem dusenje3 = new JCheckBoxMenuItem("Tretje nihalo");
@@ -40,6 +41,7 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 	public Menu(Okno okno) {
 		super();
 		this.okno = okno;
+		this.nihalo = okno.getNihalo();
 		
 		//Tip nihala
 		this.add(stevilo);
@@ -127,7 +129,9 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 				masa3.remove(masa32);
 				masa3.remove(masa33);
 				masa.remove(masa3);
-				okno.nihalo = Nihalo.povezave(3);
+				nihalo = Nihalo.tocke(3);
+				okno.ponastavi(nihalo);
+				
 			} else if (e.getActionCommand()== "Trojno"){
 				dusenje.add(dusenje3);
 				masa.add(masa3);
@@ -135,43 +139,52 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 				masa3.add(masa32);
 				masa3.add(masa33);
 				masa31.setSelected(true);
-				okno.nihalo = Nihalo.povezave(4);
+				nihalo = Nihalo.tocke(4);
+				okno.ponastavi(nihalo);
 			}
 		}
 		if (e.getActionCommand()== "PrvoEnojna"){
-			okno.nihalo.dodajMaso(okno.nihalo.tocka(1), 1);
+			nihalo.tocka(1).masa = 1;
 		} else if (e.getActionCommand()== "PrvoDvojna"){
-			okno.nihalo.dodajMaso(okno.nihalo.tocka(1), 2);
+			nihalo.tocka(1).masa = 2;
 		} else if (e.getActionCommand()== "PrvoTrojna"){
-			okno.nihalo.dodajMaso(okno.nihalo.tocka(1), 3);
+			nihalo.tocka(1).masa = 3;
 		}
 		if (e.getActionCommand()== "DrugoEnojna"){
-			okno.nihalo.dodajMaso(okno.nihalo.tocka(2), 1);
+			nihalo.tocka(2).masa = 1;
 		} else if (e.getActionCommand()== "DrugoDvojna"){
-			okno.nihalo.dodajMaso(okno.nihalo.tocka(2), 2);
+			nihalo.tocka(2).masa = 2;
 		} else if (e.getActionCommand()== "DrugoTrojna"){
-			okno.nihalo.dodajMaso(okno.nihalo.tocka(2), 3);
+			nihalo.tocka(2).masa = 3;
 		}
 		if (e.getActionCommand()== "TretjeEnojna"){
-			okno.nihalo.dodajMaso(okno.nihalo.tocka(3), 1);
+			nihalo.tocka(3).masa = 1;
 		} else if (e.getActionCommand()== "TretjeDvojna"){
-			okno.nihalo.dodajMaso(okno.nihalo.tocka(3), 2);
+			nihalo.tocka(3).masa = 2;
 		} else if (e.getActionCommand()== "TretjeTrojna"){
-			okno.nihalo.dodajMaso(okno.nihalo.tocka(3), 3);
+			nihalo.tocka(3).masa = 3;
 		}
-		okno.osvezi();
+		okno.osvezi(nihalo);
 	}
 	
 	public void itemStateChanged(ItemEvent e) {
 	    Object naslov = e.getItemSelectable();
+	    Integer izbran = 0;
+	    // Dolocimo gumb
 	    if (naslov == dusenje1){
-	    	okno.nihalo.dodajDusenje(okno.nihalo.tocka(1));
+	    	izbran = 1;
 	    } else if (naslov == dusenje2){
-	    	okno.nihalo.dodajDusenje(okno.nihalo.tocka(2));
+	    	izbran = 2;
 	    } else if (naslov == dusenje3){
-	    	okno.nihalo.dodajDusenje(okno.nihalo.tocka(3));
+	    	izbran = 3;
+	    } 
+	    // Gumb odkljukan ali ne
+	    if (e.getStateChange() == ItemEvent.DESELECTED){
+	    	nihalo.tocka(izbran).dusenje = false;
+	    } else{
+	    	nihalo.tocka(izbran).dusenje = true;
 	    }
-	    okno.osvezi();
+	    okno.osvezi(nihalo);
 	}	
 }
 	
