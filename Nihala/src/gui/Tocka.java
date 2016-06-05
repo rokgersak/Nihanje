@@ -7,7 +7,7 @@ public class Tocka {
 	
 	public Integer ime;
 	public Integer masa;
-	public Boolean dusenje;
+	public Integer dusenje;
 
 	public Double x;
 	public Double y;
@@ -15,17 +15,14 @@ public class Tocka {
 	
 	public Tocka(Integer naziv) {
 		super();
-		this.ime = naziv;
-		this.masa = 1;
-		this.dusenje = false;
+		ime = naziv;
+		masa = 1;
+		dusenje = 0;
 	}
 	
 	// Narisi tocko
 	public void narisiTocko(Graphics g){
-		if (masa == 3){
-			polmer = (double) 30;
-			g.fillOval(x.intValue() - 15, y.intValue() - 15, polmer.intValue(), polmer.intValue());
-		} else if (masa == 2){
+		if (masa == 2){
 			polmer = (double) 20;
 			g.fillOval(x.intValue() - 10, y.intValue() - 10, polmer.intValue(), polmer.intValue());
 		} else if (masa == 1){

@@ -1,65 +1,84 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
+
+import algoritem.Vlakno;
 
 @SuppressWarnings("serial")
 public class Okno extends JFrame {
 	
 	private Nihalo nihalo = Nihalo.tocke(3);
 	private Razporeditev razporeditev;
+	private Vlakno vlakno;
 	
 	private Container plosca;
 	private Platno platno;
 	private GridBagConstraints platnoLayout = new GridBagConstraints();
-	private JButton gumb;
+	private Orodjarna gumb;
 	private GridBagConstraints gumbLayout = new GridBagConstraints();
 
 	public Okno() throws HeadlessException {
 		super();
-		this.setTitle("Simulacija nihanja");
-		this.setJMenuBar(new Menu(this));
-		this.setLayout(new GridBagLayout());
+		setTitle("Simulacija nihanja");
+		setJMenuBar(new Menu(this));
+		setLayout(new GridBagLayout());
 		
 		// Plosca
 		plosca = this.getContentPane();
-		pripraviPlosco(nihalo);
+		plosca.setBackground(Color.white);
+		pripraviPlosco();
+		razporeditev.ponastaviRazporeditev(nihalo, 500, 100, 100);
 		
-		// Razporeditev
-		razporeditev = new Razporeditev(this);
-		razporeditev.zacetnaRazporeditev(nihalo, 500, 100, 100);
+		// Algoritem
+		vlakno = new Vlakno(this);
 	}		
 	
-	public void pripraviPlosco(Nihalo nihalo){
+	public void pripraviPlosco() {
 		platno = new Platno(nihalo);
 		platnoLayout.gridx = 0;
 		platnoLayout.gridy = 0;
 		plosca.add(platno, platnoLayout);
-		gumb = new JButton("Poženi");
+		gumb = new Orodjarna(this);
 		gumbLayout.gridx = 0;
 		gumbLayout.gridy = 1;
-		gumbLayout.weightx = 10.0;
-		gumbLayout.fill = GridBagConstraints.CENTER;
 		plosca.add(gumb, gumbLayout);
+		razporeditev = new Razporeditev(this);
 	}
 	
 	public void ponastavi(Nihalo ponastavljeno) {
-		razporeditev.zacetnaRazporeditev(ponastavljeno, 500, 100, 100);
-		osvezi(ponastavljeno);
+		nihalo = ponastavljeno;
+		platno.ponastaviPlatno(nihalo);
+		razporeditev.ponastaviRazporeditev(nihalo, 500, 100, 100);
+		ustavi();
 	}
 	
-	public void osvezi(Nihalo osvezeno) {
-		plosca.removeAll();
-		nihalo = osvezeno;
-		pripraviPlosco(nihalo);
-		razporeditev = new Razporeditev(this);
-		plosca.revalidate();
+	public void pozeni() {
+		try {
+			vlakno.ponastaviAlgoritem(nihalo);
+			vlakno.narediVlakno();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void ustavi() {
+		try {
+			vlakno.prekiniAlgoritem = true;
+			vlakno.uniciVlakno();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		plosca.repaint();
+	}
+
+	public Container getPlosca() {
+		return plosca;
 	}
 
 	public Platno getPlatno() {

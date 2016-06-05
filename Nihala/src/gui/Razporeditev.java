@@ -6,21 +6,18 @@ import java.awt.event.MouseListener;
 public class Razporeditev implements MouseListener {
 
 	private Okno okno;
-	private Platno platno;
 	private Nihalo nihalo;
-	private Integer izbrana = 0;
+	private int izbrana = 0;
 	
 	public Razporeditev(Okno okno) {
 		super();
 		this.okno = okno;
-		this.platno = okno.getPlatno();
 		this.nihalo = okno.getNihalo();
-		
-		// Poslusalec
-		platno.addMouseListener(this); 	
+		this.okno.getPlatno().addMouseListener(this);
 	}
 
-	public void zacetnaRazporeditev(Nihalo nihalo, int x, int y, int r){
+	public void ponastaviRazporeditev(Nihalo nihalo, int x, int y, int r){
+		this.nihalo = nihalo;
 		int i = 0;
 		for (Integer tocka : nihalo.seznam.keySet()){
 			nihalo.tocka(tocka).x = (double) (r * i + x);
@@ -28,7 +25,7 @@ public class Razporeditev implements MouseListener {
 			i++;
 		}
 	}
-
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		for (Integer tocka : nihalo.seznam.keySet()) {
@@ -46,7 +43,7 @@ public class Razporeditev implements MouseListener {
 			if (tocka != 0 && tocka == izbrana && noviX > 0 && noviX < Platno.sirina && noviY > 0 && noviY < Platno.visina){
 				nihalo.tocka(tocka).x = noviX;
 				nihalo.tocka(tocka).y = noviY;
-				okno.osvezi(nihalo);
+				okno.ustavi();
 			}
 		}
 		izbrana = 0;
