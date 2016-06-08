@@ -17,7 +17,7 @@ public class Tocka {
 		super();
 		ime = naziv;
 		masa = 1;
-		dusenje = 0;
+		dusenje = 1;
 	}
 	
 	// Narisi tocko

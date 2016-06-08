@@ -152,9 +152,9 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 	    } 
 	    // Gumb odkljukan ali ne
 	    if (e.getStateChange() == ItemEvent.DESELECTED){
-	    	nihalo.tocka(izbran).dusenje = 0;
-	    } else{
 	    	nihalo.tocka(izbran).dusenje = 1;
+	    } else{
+	    	nihalo.tocka(izbran).dusenje = 20;
 	    }
 	    okno.ustavi();
 	}	

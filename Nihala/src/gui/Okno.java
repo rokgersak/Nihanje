@@ -20,8 +20,8 @@ public class Okno extends JFrame {
 	private Container plosca;
 	private Platno platno;
 	private GridBagConstraints platnoLayout = new GridBagConstraints();
-	private Orodjarna gumb;
-	private GridBagConstraints gumbLayout = new GridBagConstraints();
+	private Orodjarna orodjarna;
+	private GridBagConstraints orodjarnaLayout = new GridBagConstraints();
 
 	public Okno() throws HeadlessException {
 		super();
@@ -44,10 +44,10 @@ public class Okno extends JFrame {
 		platnoLayout.gridx = 0;
 		platnoLayout.gridy = 0;
 		plosca.add(platno, platnoLayout);
-		gumb = new Orodjarna(this);
-		gumbLayout.gridx = 0;
-		gumbLayout.gridy = 1;
-		plosca.add(gumb, gumbLayout);
+		orodjarna = new Orodjarna(this);
+		orodjarnaLayout.gridx = 0;
+		orodjarnaLayout.gridy = 1;
+		plosca.add(orodjarna, orodjarnaLayout);
 		razporeditev = new Razporeditev(this);
 	}
 	

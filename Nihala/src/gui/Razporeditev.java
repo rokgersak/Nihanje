@@ -8,6 +8,9 @@ public class Razporeditev implements MouseListener {
 	private Okno okno;
 	private Nihalo nihalo;
 	private int izbrana = 0;
+	private int velikost;
+	private int sirina;
+	private int visina;
 	
 	public Razporeditev(Okno okno) {
 		super();
@@ -16,10 +19,10 @@ public class Razporeditev implements MouseListener {
 		this.okno.getPlatno().addMouseListener(this);
 	}
 
-	public void ponastaviRazporeditev(Nihalo nihalo, int x, int y, int r){
+	public void ponastaviRazporeditev(Nihalo nihalo, int x, int y, int r) {
 		this.nihalo = nihalo;
 		int i = 0;
-		for (Integer tocka : nihalo.seznam.keySet()){
+		for (Integer tocka : nihalo.seznam.keySet()) {
 			nihalo.tocka(tocka).x = (double) (r * i + x);
 			nihalo.tocka(tocka).y = (double) (r * i + y);
 			i++;
@@ -28,8 +31,11 @@ public class Razporeditev implements MouseListener {
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
+		velikost = 2*nihalo.seznam.size();
+		sirina = (Platno.sirina)/(velikost);
+		visina = (Platno.visina)/(velikost);
 		for (Integer tocka : nihalo.seznam.keySet()) {
-			if (tocka != 0 && nihalo.tocka(tocka).getPolje().contains(e.getPoint())){
+			if (tocka != 0 && nihalo.tocka(tocka).getPolje().contains(e.getPoint())) {
 					izbrana = tocka ;
 			}
 		}
@@ -40,7 +46,7 @@ public class Razporeditev implements MouseListener {
 		for (Integer tocka : nihalo.seznam.keySet()) {
 			double noviX = e.getX();
 			double noviY = e.getY();
-			if (tocka != 0 && tocka == izbrana && noviX > 0 && noviX < Platno.sirina && noviY > 0 && noviY < Platno.visina){
+			if (tocka != 0 && tocka == izbrana && noviX > sirina && noviX < sirina*(velikost - 1) && noviY > 0 && noviY < visina*(velikost - 1)) {
 				nihalo.tocka(tocka).x = noviX;
 				nihalo.tocka(tocka).y = noviY;
 				okno.ustavi();

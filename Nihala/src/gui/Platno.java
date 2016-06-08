@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
@@ -18,6 +19,7 @@ public class Platno extends JPanel {
 		this.nihalo = nihalo;
 		setBackground(Color.white);
 		setPreferredSize(new Dimension(sirina, visina));
+		setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 		
 	public void ponastaviPlatno(Nihalo nihalo) {
@@ -52,7 +54,7 @@ public class Platno extends JPanel {
 			g.setColor(Color.BLACK);
 			g.fillOval(495, 95, 10, 10);
 		} else{
-			if (nihalo.tocka(tocka).dusenje == 0){
+			if (nihalo.tocka(tocka).dusenje == 1){
 				g.setColor(Color.BLUE);
 				nihalo.tocka(tocka).narisiTocko(g);
 			} else{

@@ -30,9 +30,14 @@ public class TrojnoNihalo {
     		if (tocka != 0) {
     			x[tocka] = nihalo.tocka(tocka).x;
     			y[tocka] = nihalo.tocka(tocka).y;
-    			dolzina[tocka] = Math.sqrt((x[tocka]-x[tocka-1])*(x[tocka]-x[tocka-1]) + (y[tocka]-y[tocka-1])*(y[tocka]-y[tocka-1]));
-    			double sirina = x[tocka]-x[tocka-1];
-    			phi[tocka] = Math.asin(sirina/dolzina[tocka]);
+    			dolzina[tocka] = Math.sqrt((x[tocka] - x[tocka-1])*(x[tocka] - x[tocka-1]) + (y[tocka] - y[tocka-1])*(y[tocka] - y[tocka-1]));
+    			double sirina = x[tocka] - x[tocka-1];
+    			double visina = y[tocka] - y[tocka-1];
+    			if (visina > 0) {
+    				phi[tocka] = Math.asin(sirina/dolzina[tocka]);
+    			} else if (visina < 0) {
+    				phi[tocka] = -Math.asin(sirina/dolzina[tocka]) + Math.PI;
+    			}
     			omega[tocka] = 0.0;
     		} else {
     			x[tocka] = nihalo.tocka(tocka).x;
@@ -64,7 +69,7 @@ public class TrojnoNihalo {
 				 + 8*omega2*omega2*Math.sin(phi1-phi2)
 				 + 2*omega3*omega3*Math.sin(phi1-phi3)
 				 + 2*omega3*omega3*Math.sin(phi1-2*phi2+phi3))
-				/(-10. + 4*Math.cos(2*phi1-2*phi2) + 2*Math.cos(2*phi2-2*phi3));
+				/(-10. + 4*Math.cos(2*phi1-2*phi2) + 2*Math.cos(2*phi2-2*phi3)) - 0.01*omega1;
 		return a;
     }
 
@@ -80,7 +85,7 @@ public class TrojnoNihalo {
 				 - 4*omega2*omega2*Math.sin(2*phi1-2*phi2)
 				 + 6*omega3*omega3*Math.sin(phi2-phi3)
 				 - 2*omega3*omega3*Math.sin(2*phi1-phi2-phi3))
-    			/(-10. + 4*Math.cos(2*phi1-2*phi2) + 2*Math.cos(2*phi2-2*phi3));
+    			/(-10. + 4*Math.cos(2*phi1-2*phi2) + 2*Math.cos(2*phi2-2*phi3)) - 0.01*omega2;
 		return b;
     }
 
@@ -92,7 +97,7 @@ public class TrojnoNihalo {
 			 	  + 2*omega1*omega1*Math.cos(phi1-phi2)
 				  + 2*omega2*omega2
 			 	  + omega3*omega3*Math.cos(phi2-phi3)) 
-				/(-5. + 2*Math.cos(2*phi1-2*phi2) + Math.cos(2*phi2-2*phi3));
+				/(-5. + 2*Math.cos(2*phi1-2*phi2) + Math.cos(2*phi2-2*phi3)) - 0.01*omega3;
     	return c;
     }
 

@@ -32,9 +32,14 @@ public class DvojnoNihalo {
     			y[tocka] = nihalo.tocka(tocka).y;
     			masa[tocka] = nihalo.tocka(tocka).masa;
     			dusenje[tocka] = nihalo.tocka(tocka).dusenje;
-    			dolzina[tocka] = Math.sqrt((x[tocka]-x[tocka-1])*(x[tocka]-x[tocka-1]) + (y[tocka]-y[tocka-1])*(y[tocka]-y[tocka-1]));
-    			double sirina = x[tocka]-x[tocka-1];
-    			phi[tocka] = Math.asin(sirina/dolzina[tocka]);
+    			dolzina[tocka] = Math.sqrt((x[tocka] - x[tocka-1])*(x[tocka] - x[tocka-1]) + (y[tocka] - y[tocka-1])*(y[tocka] - y[tocka-1]));
+    			double sirina = x[tocka] - x[tocka-1];
+    			double visina = y[tocka] - y[tocka-1];
+    			if (visina > 0) {
+    				phi[tocka] = Math.asin(sirina/dolzina[tocka]);
+    			} else if (visina < 0) {
+    				phi[tocka] = -Math.asin(sirina/dolzina[tocka]) + Math.PI;
+    			}
     			omega[tocka] = 0.0;
     		} else {
     			x[tocka] = nihalo.tocka(tocka).x;
@@ -57,7 +62,7 @@ public class DvojnoNihalo {
     public double force1(double phi1, double phi2, double omega1, double omega2) {
     	double a = -(grav*(2*masa[1]*Math.sin(phi1) + masa[2]*Math.sin(phi1) + masa[2]*Math.sin(phi1-2*phi2))
     			+ masa[2]*omega1*omega1*Math.sin(2*phi1-2*phi2) + 2*masa[2]*omega2*omega2*Math.sin(phi1-phi2))/
-    			(2*masa[1] + masa[2] - masa[2]*Math.cos(2*phi1-2*phi2)) - 0.1*dusenje[1]*omega1;
+    			(2*masa[1] + masa[2] - masa[2]*Math.cos(2*phi1-2*phi2)) - 0.01*dusenje[1]*omega1;
         return a;
     }
 
@@ -65,7 +70,7 @@ public class DvojnoNihalo {
     public double force2(double phi1, double phi2, double omega1, double omega2) {
     	double a = (2*Math.sin(phi1-phi2)*(grav*(masa[1] + masa[2])*Math.cos(phi1) + 
     			(masa[1] + masa[2])*omega1*omega1 + masa[2]*omega2*omega2*Math.cos(phi1-phi2)))/ 
-    			(2*masa[1] + masa[2] - masa[2]*Math.cos(2*phi1-2*phi2)) - 0.1*dusenje[2]*omega2;
+    			(2*masa[1] + masa[2] - masa[2]*Math.cos(2*phi1-2*phi2)) - 0.01*dusenje[2]*omega2;
         return a;
     }
 
