@@ -28,6 +28,7 @@ public class Okno extends JFrame {
 		setTitle("Simulacija nihanja");
 		setJMenuBar(new Menu(this));
 		setLayout(new GridBagLayout());
+		setResizable(false);
 		
 		// Plosca
 		plosca = this.getContentPane();

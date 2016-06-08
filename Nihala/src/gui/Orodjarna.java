@@ -14,9 +14,9 @@ import javax.swing.JPanel;
 public class Orodjarna extends JPanel implements ActionListener {
 	
 	private Okno okno;
-	private JButton pozeniGumb = new JButton("Poûeni");
+	private JButton pozeniGumb = new JButton("Po≈æeni");
 	private JButton ustaviGumb = new JButton("Ustavi");
-	private JLabel besedilo = new JLabel("Masne toËke premikamo s klikom in spustom.");
+	private JLabel besedilo = new JLabel("Masne toƒçke premikamo s klikom in spustom.");
 	private GridBagConstraints pozeniGumbLayout = new GridBagConstraints();
 	private GridBagConstraints ustaviGumbLayout = new GridBagConstraints();
 	private GridBagConstraints besediloLayout = new GridBagConstraints();

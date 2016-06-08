@@ -12,7 +12,7 @@ public class Platno extends JPanel {
 	
 	private Nihalo nihalo;
  	public static int sirina = 1000;
-	public static int visina = 600;
+	public static int visina = 550;
 	
 	public Platno(Nihalo nihalo) {
 		super();
