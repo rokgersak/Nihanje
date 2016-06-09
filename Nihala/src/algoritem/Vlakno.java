@@ -29,11 +29,13 @@ public  class Vlakno {
 	}
     
     public void narediVlakno() throws InterruptedException {
-    	uniciVlakno();
+    	ustaviVlakno();
     	animator = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				pozeniVlakno();				
+				prekiniAlgoritem = false;
+				pozeniVlakno();
+				animator = null;
 			}
 		});
     	animator.start();
@@ -68,9 +70,11 @@ public  class Vlakno {
         }
     }
     
-    public void uniciVlakno() throws InterruptedException {
-    	animator = null;
-    	prekiniAlgoritem = false;
+    public void ustaviVlakno() throws InterruptedException {
+    	prekiniAlgoritem = true;
+    	if (animator != null) {
+    		animator.join();
+    	}
     }
 }
 

@@ -36,16 +36,16 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 		this.nihalo = okno.getNihalo();
 		
 		// Zacetek
-		steviloNihal();
-		dusenje();
-		masa();
+		pripraviSteviloNihalMenu();
+		pripraviDusenjeMenu();
+		pripraviMasaMenu();
 		dvojno.setSelected(true);
 		masa11.setSelected(true);
 		masa21.setSelected(true);
 	}
 
 	// Stevilo Nihal
-	public void steviloNihal() {
+	public void pripraviSteviloNihalMenu() {
 		this.add(stevilo);
 		stevilo.add(dvojno);
 		stevilo.add(trojno);
@@ -63,7 +63,7 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 	}
 	
 	// Dusenje
-	public void dusenje() {
+	public void pripraviDusenjeMenu() {
 		this.add(dusenje);
 		dusenje.add(dusenje1);
 		dusenje.add(dusenje2);
@@ -74,7 +74,7 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 	}
 	
 	// Masa
-	public void masa() {
+	public void pripraviMasaMenu() {
 		this.add(masa);
 		masa.add(masa1);
 		masa.add(masa2);
@@ -101,6 +101,7 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
         skupinaMasa2.add(masa21);
         skupinaMasa2.add(masa22);
 	}
+
 	
 	@Override
 	public void actionPerformed(ActionEvent e){
@@ -112,13 +113,11 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 			if (e.getActionCommand()== "Dvojno"){
 				add(dusenje);
 				add(masa);
-				nihalo = Nihalo.tocke(3);
-				okno.ponastavi(nihalo);
+				okno.ponastavi(Nihalo.tocke(3));
 			} else if (e.getActionCommand()== "Trojno"){
 				remove(dusenje);
 				remove(masa);
-				nihalo = Nihalo.tocke(4);
-				okno.ponastavi(nihalo);
+				okno.ponastavi(Nihalo.tocke(4));
 			}
 		}
 		if (e.getActionCommand()== "PrvoEnojna"){
@@ -143,7 +142,7 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 	
 	public void itemStateChanged(ItemEvent e) {
 	    Object naslov = e.getItemSelectable();
-	    Integer izbran = 0;
+	    int izbran = 0;
 	    // Dolocimo gumb
 	    if (naslov == dusenje1){
 	    	izbran = 1;
@@ -157,6 +156,10 @@ public class Menu extends JMenuBar implements ActionListener, ItemListener {
 	    	nihalo.tocka(izbran).dusenje = 20;
 	    }
 	    okno.ustavi();
-	}	
+	}
+	
+	public void ponastaviMenu(Nihalo nihalo) {
+		this.nihalo = nihalo;
+	}
 }
 	

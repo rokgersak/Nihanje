@@ -14,11 +14,12 @@ import javax.swing.JPanel;
 public class Orodjarna extends JPanel implements ActionListener {
 	
 	private Okno okno;
-	private JButton pozeniGumb = new JButton("Po≈æeni");
+	public JButton pozeniGumb = new JButton("Poûeni");
 	private JButton ustaviGumb = new JButton("Ustavi");
-	private JLabel besedilo = new JLabel("Masne toƒçke premikamo s klikom in spustom.");
-	private GridBagConstraints pozeniGumbLayout = new GridBagConstraints();
-	private GridBagConstraints ustaviGumbLayout = new GridBagConstraints();
+	private JButton ponoviGumb = new JButton("Ponovi");
+	private JLabel besedilo = new JLabel("Masne toËke premikamo s klikom in spustom.");
+	private GridBagConstraints gumb1Layout = new GridBagConstraints();
+	private GridBagConstraints gumb2Layout = new GridBagConstraints();
 	private GridBagConstraints besediloLayout = new GridBagConstraints();
 
 	public Orodjarna(Okno okno) {
@@ -26,36 +27,54 @@ public class Orodjarna extends JPanel implements ActionListener {
 		this.okno = okno;
 		setLayout(new GridBagLayout());
 		setBackground(Color.white);
-		pripraviOrodjarno();
+		pripraviBesedilo();
+		pripraviGumb1(pozeniGumb);
+		pripraviGumb2();
 		
 		// Poslusalci
 		pozeniGumb.addActionListener(this);
 		ustaviGumb.addActionListener(this);
+		ponoviGumb.addActionListener(this);
 	}
 
-	public void pripraviOrodjarno () {
+	public void pripraviBesedilo () {
 		besediloLayout.ipady = 10;
 		besediloLayout.gridx = 0;
 		besediloLayout.gridy = 0;
 		besediloLayout.gridwidth = 2;
-		add(besedilo, besediloLayout);
-		pozeniGumbLayout.ipadx = 40;
-		pozeniGumbLayout.weightx = 0.5;
-		pozeniGumbLayout.gridx = 0;
-		pozeniGumbLayout.gridy = 2;
-		add(pozeniGumb, pozeniGumbLayout);
-		ustaviGumbLayout.ipadx = 40;
-		ustaviGumbLayout.weightx = 0.5;
-		ustaviGumbLayout.gridx = 1;
-		ustaviGumbLayout.gridy = 2;
-		add(ustaviGumb, ustaviGumbLayout);
+		add(besedilo, besediloLayout);	
+	}
+	
+	public void pripraviGumb1 (JButton gumb1) {
+		remove(pozeniGumb);
+		remove(ustaviGumb);
+		gumb1Layout.ipadx = 40;
+		gumb1Layout.weightx = 0.5;
+		gumb1Layout.gridx = 0;
+		gumb1Layout.gridy = 2;
+		add(gumb1, gumb1Layout);
+		revalidate();
+		repaint();
+	}
+	
+	public void pripraviGumb2 () {
+		gumb2Layout.ipadx = 40;
+		gumb2Layout.weightx = 0.5;
+		gumb2Layout.gridx = 1;
+		gumb2Layout.gridy = 2;
+		add(ponoviGumb, gumb2Layout);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == pozeniGumb) {
 			okno.pozeni();
+			pripraviGumb1(ustaviGumb);
 		} else if (e.getSource() == ustaviGumb) {
 			okno.ustavi();
+			pripraviGumb1(pozeniGumb);
+		} else if (e.getSource() == ponoviGumb)  {
+			okno.ponastavi(okno.getNihalo());
+			pripraviGumb1(pozeniGumb);
 		}
 	}
 }

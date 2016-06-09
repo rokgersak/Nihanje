@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
@@ -14,25 +15,26 @@ import algoritem.Vlakno;
 public class Okno extends JFrame {
 	
 	private Nihalo nihalo = Nihalo.tocke(3);
-	private Razporeditev razporeditev;
 	private Vlakno vlakno;
 	
+	private Menu menu;
 	private Container plosca;
 	private Platno platno;
 	private GridBagConstraints platnoLayout = new GridBagConstraints();
 	private Orodjarna orodjarna;
 	private GridBagConstraints orodjarnaLayout = new GridBagConstraints();
+	private Razporeditev razporeditev;
 
 	public Okno() throws HeadlessException {
 		super();
 		setTitle("Simulacija nihanja");
-		setJMenuBar(new Menu(this));
 		setLayout(new GridBagLayout());
 		setResizable(false);
 		
 		// Plosca
+		menu = new Menu(this);
+		setJMenuBar(menu);
 		plosca = this.getContentPane();
-		plosca.setBackground(Color.white);
 		pripraviPlosco();
 		razporeditev.ponastaviRazporeditev(nihalo, 500, 100, 100);
 		
@@ -41,6 +43,8 @@ public class Okno extends JFrame {
 	}		
 	
 	public void pripraviPlosco() {
+		plosca.setBackground(Color.white);
+		plosca.setPreferredSize(new Dimension(1100, 700));
 		platno = new Platno(nihalo);
 		platnoLayout.gridx = 0;
 		platnoLayout.gridy = 0;
@@ -53,10 +57,12 @@ public class Okno extends JFrame {
 	}
 	
 	public void ponastavi(Nihalo ponastavljeno) {
+		ustavi();
 		nihalo = ponastavljeno;
+		menu.ponastaviMenu(nihalo);
 		platno.ponastaviPlatno(nihalo);
 		razporeditev.ponastaviRazporeditev(nihalo, 500, 100, 100);
-		ustavi();
+		plosca.repaint();
 	}
 	
 	public void pozeni() {
@@ -70,11 +76,11 @@ public class Okno extends JFrame {
 	
 	public void ustavi() {
 		try {
-			vlakno.prekiniAlgoritem = true;
-			vlakno.uniciVlakno();
+			vlakno.ustaviVlakno();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		orodjarna.pripraviGumb1(orodjarna.pozeniGumb);
 		plosca.repaint();
 	}
 

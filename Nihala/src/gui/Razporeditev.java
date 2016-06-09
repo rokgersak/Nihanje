@@ -16,6 +16,8 @@ public class Razporeditev implements MouseListener {
 		super();
 		this.okno = okno;
 		this.nihalo = okno.getNihalo();
+		
+		// Poslusalec
 		this.okno.getPlatno().addMouseListener(this);
 	}
 
